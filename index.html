@@ -57,4 +57,51 @@
             font-weight: bold;
             border: none;
         }
-       
+
+        .transaksi {
+            background: white;
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 12px;
+        }
+
+        .masuk {
+            color: green;
+        }
+
+        .keluar {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Smart Finance</h1>
+    <p>Business Manager</p>
+</header>
+
+<div class="container">
+
+    <div class="saldo">
+        <p>Saldo Saat Ini</p>
+        <h2 id="saldo">Rp 0</h2>
+    </div>
+
+    <div class="form">
+        <h3>Tambah Transaksi</h3>
+
+        <select id="jenis">
+            <option value="masuk">Pemasukan</option>
+            <option value="keluar">Penheluaran</option>
+        </select>
+
+        <input type="text" id="keterangan" placeholder="Keterangan">
+
+        <input type="number" id="jumlah" placeholder="Jumlah Uang">
+
+        <button onclick="tambahTransaksi()">
+            Simpan Transaksi
+        </button>
+    </div>
