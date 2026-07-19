@@ -105,3 +105,81 @@
             Simpan Transaksi
         </button>
     </div>
+
+    <div class="transaksi>
+        <h3>Riwayat Transaksi</h3>
+        <div id="riwayat"></div>
+    </div>
+
+</div>
+
+<script>
+    let transaksi = JSON.parse(localStoreage.getItem("transaksi")) || [];
+
+    function tampilkanTransaksi() {
+        let saldo = 0;
+        let riwayat = document.getElementById("riwayat");
+
+        riwayat.innerHTML = "";
+
+        transaksi.forEach((item) => {
+
+            if (item.jenis === "masuk") {
+                saldo += item.jumlah;
+            } else {
+                saldo -= item.jumlah;
+            }
+
+            let div = document.crateElement("div");
+
+            div.innerHTML = `
+                <p>
+                    <b>${item.keterangan}</b><br>
+                <span class="${item.jenis}">
+                    ${item.jenis === "masuk" ? "+" : "-"}
+                    Rp ${item.jumlah.toLocaleString("id-ID")}
+                </span>
+            </p>
+            <hr>
+        `;
+
+        riwayat.appendChild(div);
+    });
+
+    document.getElementById("saldo").innerText =
+        "Rp " + saldo.toLocaleString("id-ID");
+    }
+
+    function tambahTransaksi() {
+
+        let jenis = document.getElementById("jenis").value;
+        let keterangan = document.getElementById("keterangan").value;
+        let jumlah = Number(document.getElementById("jumlah").value;
+
+        if (keterangan === "" || jumlah <= 0) {
+            alert("isi keterangan dan jumlah uang!");
+            return;
+        }
+
+        transaksi.push({
+            jenis: jenis,
+            keterangan: keterangan,
+            jumlah: jumlah
+        });
+
+        localStorage.setItem(
+            "transaksi",
+            JSON.stringify(transaksi)
+        );
+
+        document.getElementById("keterangan").value = "";
+        document.getElementById("jumlah").value = "",
+
+        tampilkanTransaksi();
+    }
+
+    tampilkanTransaksi();
+</script>
+
+</body>
+</html>
